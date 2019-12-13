@@ -2,6 +2,14 @@
 
 Bài tập lớn cuối kì môn cơ sở dữ liệu 
 
+## Authors
+
+* **Lê Ngọc Anh Quân** - *20176852* - [PurpleBooth](https://github.com/quan191)
+
+* **Nguyễn Vũ Long** - *20176809* - [PurpleBooth](https://github.com/LongNguyenVu181)
+
+
+
 ## Đề bài 
 
 Xây dựng cơ sở dữ liệu và viết các câu truy vấn với database đó 

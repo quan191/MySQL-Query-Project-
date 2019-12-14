@@ -146,7 +146,7 @@ Solution here
 Solution here
 ```
 
-* 20
+* 20 In ra bảng xếp hạng cuối mùa của từng đội bóng
 ```
 Solution here
 ```

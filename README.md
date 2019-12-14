@@ -66,7 +66,89 @@ FROM teams
 group by A.matchID;  
 ```
 
+* 4 	Đội bóng có chuỗi trận giữ sạch lưới dài nhất 
+```
+Solution here
+```
 
+* 5 Ví dụ của intersect : Đội bóng vừa bán hành cho Manchester United vừa bán hành  Arsenal ( thắng cả ManchesterUnited cả Arsenal)
+```
+Solution here
+```
 
+* 6 Ví dụ của minus
+```
+Solution here
+```
+
+* 7 
+```
+Solution here
+```
+
+* 8 
+```
+Solution here
+```
+
+* 9
+```
+Solution here
+```
+
+* 10
+```
+Solution here
+``` 
+
+* 11 
+```
+Solution here
+```
+
+* 12 
+```
+Solution here
+```
+
+* 13 
+```
+Solution here
+```
+
+* 14
+```
+Solution here
+```
+
+* 15 
+```
+Solution here
+```
+
+* 16
+```
+Solution here
+```
+
+* 17
+```
+Solution here
+```
+
+* 18
+```
+Solution here
+```
+
+* 19
+```
+Solution here
+```
+
+* 20
+```
+Solution here
+```
 
 

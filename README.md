@@ -76,7 +76,7 @@ Solution here
 Solution here
 ```
 
-* 6 Ví dụ của minus
+* 6 Ví dụ của minus : Đội bóng từng thắng MU nhưng chưa từng thắng MC 
 ```
 Solution here
 ```

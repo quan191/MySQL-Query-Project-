@@ -68,7 +68,13 @@ group by A.matchID;
 
 * 4 Cầu thủ có tổng thời gian chơi ít nhất trong mùa giải 
 ```
-Solution here
+SELECT A.name , 
+SUM(B.TimePlayed)
+FROM players AS A
+JOIN actions AS B
+USING (playerID)
+GROUP BY B.playerId 
+ORDER BY SUM(B.TimePlayed) LIMIT 1;
 ```
 
 * 5 Ví dụ của intersect : Đội bóng vừa bán hành cho Arsenal ( thắng  Arsenal cả lượt đi và lượt về )

@@ -66,7 +66,7 @@ FROM teams
 group by A.matchID;  
 ```
 
-* 4 	Đội bóng có chuỗi trận giữ sạch lưới dài nhất 
+* 4 Trong các thủ môn x, y,z  thủ môn nào là thủ môn có nhiều trận giữ sạch lưới nhất 
 ```
 Solution here
 ```
@@ -134,47 +134,47 @@ AND
 POSITION('o' IN LOWER(SUBSTR(name,LOCATE(' ',name),LOCATE(SUBSTRING_INDEX(name,' ',-1),name)-LOCATE(' ',name)))) >0;
 ``` 
 
-* 11 
+* 11 Cầu thủ ghi được nhiều bàn thắng trên sân khách nhất
 ```
 Solution here
 ```
 
-* 12 
+* 12 Cầu thủ chưa bao giờ trong đội hình xuất phát mà nhận nhiều thẻ đỏ nhất 
 ```
 Solution here
 ```
 
-* 13 
+* 13 Liệt kê cầu thủ có số thời gian chơi lớn hơn trung bình thời gian chơi của các đội ấy
 ```
 Solution here
 ```
 
-* 14
+* 14 Cầu thủ có tỉ lệ sút thành công penalty cao nhất mà số lần sút < trung bình của số penalty của mùa giải  
 ```
 Solution here
 ```
 
-* 15 
+* 15 Đội bóng càng đá càng hay ( số điểm dành được ở mùa sau > số điểm dành được ở mùa trước
 ```
 Solution here
 ```
 
-* 16
+* 16 Thành tích của 1 đội cho đến ngày x x x 
 ```
 Solution here
 ```
 
-* 17
+* 17 Cầu thủ vứt đi 
 ```
 Solution here
 ```
 
-* 18
+* 18 Liệt kê số lượng thủ môn , tiền vệ , hậu vệ , tiền đạo của từng đội bóng 
 ```
 Solution here
 ```
 
-* 19
+* 19 Chuỗi trận giữ sạch lưới nhiều nhất của đội X
 ```
 Solution here
 ```

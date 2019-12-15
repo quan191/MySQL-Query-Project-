@@ -95,12 +95,12 @@ ON matches.teamAwayID=Teams.teamID
 WHERE Teams.name='Arsenal' AND matches.resultOfTeamHome=1 );
 ```
 
-* 6 Ví dụ của minus : Đội bóng từng thắng MU nhưng chưa từng thắng MC 
+* 6 Ví dụ của minus : Đội bóng thắng MU nhưng chưa từng thắng MC 
 ```
 Solution here
 ```
 
-* 7 In ra lịch thi đấu ngày x/y/z
+* 7 In ra lịch thi đấu ngày 2011-12-10
 ```
 SELECT B.name AS Home,
       	C.name AS AWAY,
@@ -174,12 +174,32 @@ SELECT A.name ,
 
 * 13 Liệt kê cầu thủ có số thời gian chơi lớn hơn trung bình thời gian chơi của các đội ấy
 ```
-Solution here
+SELECT B.teamID,
+	A.name,
+        sum(B.timePlayed) AS timePlayedInSeason ,
+	(SELECT SUM(timePlayed) from actions WHERE actions.teamID=B.teamID GROUP BY teamID ) /(SELECT COUNT(distinct(playerID)) FROM 		actions WHERE actions.teamID=B.teamID group by teamID ) AS AverangeTimePlayedOfPlayerInSeason
+    FROM players AS A
+    JOIN actions AS B
+    USING (playerID)
+    GROUP BY B.playerID  HAVING SUM(B.timePlayed) > 
+    (SELECT SUM(timePlayed) from actions WHERE actions.teamID=B.teamID GROUP BY teamID )/(SELECT COUNT(DISTINCT(playerID)) FROM actions 	WHERE actions.teamID=B.teamID GROUP BY teamID )
+    ORDER BY B.teamID;
+
 ```
 
 * 14 Cầu thủ có tỉ lệ sút thành công penalty cao nhất mà số lần sút < trung bình của số penalty của mùa giải  
 ```
-Solution here
+SET @a= (SELECT SUM(penaltiesNotScored)+SUM(penaltyGoals) FROM actions )/(SELECT COUNT(DISTINCT(matchID)) FROM actions WHERE penaltyGoals>0 or penaltiesNotScored>0 );
+SELECT  A.name,
+	sum(B.penaltyGoals) as penaltyScored,
+        sum(B.penaltiesNotScored) as  penaltyNotScored,
+	sum(B.penaltyGoals)/(sum(B.penaltiesNotScored)+sum(B.penaltyGoals)) AS percentPenaltyScore,
+        @a as percentTotalPenalties
+    FROM players AS A
+    JOIN actions AS B
+    USING (playerID)
+    GROUP BY B.playerID having (sum(B.penaltiesNotScored)+sum(B.penaltyGoals)) > @a
+    ORDER BY percentPenaltyScore desc limit 1;
 ```
 
 * 15 Đội bóng càng đá càng hay ( số điểm dành được ở mùa sau > số điểm dành được ở mùa trước

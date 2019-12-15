@@ -199,17 +199,92 @@ Solution here
 
 * 18 Liệt kê số lượng thủ môn , tiền vệ , hậu vệ , tiền đạo của từng đội bóng 
 ```
-Solution here
+select 
+	Team1 as TEAM, 
+	count(if(PositionID=1,1,NULL)) as TM, 
+	count(if(PositionID=2,1,NULL)) as HV, 
+	count(if(PositionID=4,1,NULL)) as TV, 
+	count(if(PositionID=6,1,NULL)) as TD 
+	from (select distinct(PlayerID),Team1,PositionID from Actions) as t group by Team1;
 ```
 
 * 19 Chuỗi trận giữ sạch lưới nhiều nhất của đội X
 ```
-Solution here
+DROP PROCEDURE IF EXISTS giu_sach_luoi;
+	DELIMITER //
+
+	CREATE PROCEDURE giu_sach_luoi(IN teamname VARCHAR(60), out count int)
+	BEGIN
+	DECLARE x INT;
+	DECLARE done INT DEFAULT FALSE;
+	declare max int default 0;
+	declare curr_max int default 0;
+	DECLARE cursor_i CURSOR FOR 
+	with 
+	temp as (select m.MatchID, a.Team1 as team_name, sum(Goals) as goals 
+	from Actions as a 
+	join 
+	Matches as m 
+	on a.MatchID = m.MatchID 
+	group by a.MatchID, a.Team1),
+	temp2 as 
+	(select t1.MatchID, t1.team_name as team1, t2.team_name as team2, t1.goals as goals1, t2.goals as goals2, m.Date 
+	from temp as t1
+	join temp as t2
+	on t1.MatchID = t2.MatchID and t1.team_name != t2.team_name
+	join Matches as m
+	on t1.MatchID = m.MatchID)
+	select goals2 from temp2 where team1 = teamname order by Date;
+
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+	OPEN cursor_i;
+	read_loop: LOOP
+	FETCH cursor_i INTO x;
+	IF done THEN
+	LEAVE read_loop;
+	END IF;
+	if x = 0 then
+	set curr_max = curr_max + 1;
+	else
+	if curr_max > max then
+	set max = curr_max;
+	end if;
+	set curr_max = 0;
+	end if;
+	END LOOP;
+	CLOSE cursor_i;
+	set count = max;
+	END //	
+	DELIMITER ;
+
+	call giu_sach_luoi("Arsenal",@c);
+	select @c;
 ```
 
 * 20 In ra bảng xếp hạng cuối mùa của từng đội bóng
 ```
-Solution here
+set @i =0;
+with 
+	temp as (select m.MatchID, a.Team1 as team_name,sum(Goals) as goals 
+	from Actions as a 
+	join 
+	Matches as m 
+	on a.MatchID = m.MatchID group by a.MatchID, a.Team1), 
+	temp2 as 
+	(select t1.MatchID, t1.team_name as team1, t2.team_name as team2, t1.goals as goals1, t2.goals as goals2 
+	from temp as t1
+	join temp as t2
+	on t1.MatchID = t2.MatchID and t1.team_name != t2.team_name),
+	temp3 as (
+	select
+	team1 as TEAM, 
+	count(if(goals1>goals2, 1, NULL)) as win, 
+	count(if(goals1=goals2,1,NULL)) as draw, 
+	count(if(goals1<goals2,1,NULL)) as lose,
+	count(if(goals1>goals2,1,NULL))*3+count(if(goals1=goals2,1,NULL)) as PTS
+	from temp2 group by team1 order by count(if(goals1>goals2,1,NULL))*3+count(if(goals1=goals2,1,NULL)) desc,sum(goals1)-sum(goals2) desc, sum(goals1) desc)
+	select @i:=@i+1 as Rank,TEAM,win,draw,lose,PTS from temp3;
 ```
 
 

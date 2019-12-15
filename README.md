@@ -116,14 +116,22 @@ group by A.matchID;  ;
 Solution here
 ```
 
-* 9
+* 9 In ra cầu thủ có tên kí tự đặc biệt của đội Manchester United (ứng dụng regexp )
 ```
-Solution here
+SELECT DISTINCT(players.name)
+	FROM players
+    JOIN actions ON players.playerID=actions.playerID  
+    JOIN teams ON teams.teamID=actions.teamID
+    WHERE teams.name='Manchester United' AND REPLACE(lower(players.name),' ','') REGEXP '[^a-z]';
 ```
 
-* 10
+* 10 In ra cầu thủ có chữ O ở trong tên đệm ( tên đệm là tên ở ko phải họ và không phải tên 
 ```
-Solution here
+SELECT DISTINCT(name)
+FROM players  
+WHERE  LENGTH(TRIM(name))-LENGTH(REPLACE(TRIM(name),' ',''))>=2 
+AND 
+POSITION('o' IN LOWER(SUBSTR(name,LOCATE(' ',name),LOCATE(SUBSTRING_INDEX(name,' ',-1),name)-LOCATE(' ',name)))) >0;
 ``` 
 
 * 11 

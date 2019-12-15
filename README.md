@@ -66,7 +66,7 @@ FROM teams
 group by A.matchID;  
 ```
 
-* 4 Trong các thủ môn x, y,z  thủ môn nào là thủ môn có nhiều trận giữ sạch lưới nhất 
+* 4 Cầu thủ có tổng thời gian chơi ít nhất trong mùa giải 
 ```
 Solution here
 ```

@@ -142,12 +142,34 @@ POSITION('o' IN LOWER(SUBSTR(name,LOCATE(' ',name),LOCATE(SUBSTRING_INDEX(name,'
 
 * 11 Cầu thủ ghi được nhiều bàn thắng trên sân khách nhất
 ```
-Solution here
+SELECT A.name,
+	SUM(B.goals) as Goal
+FROM players AS A
+JOIN actions AS B 
+USING (playerID)
+JOIN matches AS C
+USING (matchID)
+WHERE B.teamID=C.teamAwayID
+GROUP BY A.playerID 
+ORDER BY SUM(B.goals) DESC LIMIT 1 ;
 ```
 
-* 12 Cầu thủ chưa bao giờ trong đội hình xuất phát mà nhận nhiều thẻ đỏ nhất 
+* 12 Cầu thủ không trong đội hình xuất phát mà ghi bàn trong trận thắng của đội  
 ```
-Solution here
+SELECT A.name ,
+	B.team1,
+	B.Team2,
+    	B.timePlayed
+    FROM players AS A
+    JOIN actions AS B
+    USING (playerID)
+    JOIN matches AS C
+	USING (matchID)
+    WHERE B.starts =0 AND B.goals >0
+    AND
+    IF (B.teamID=c.teamHomeID,C.resultOfTeamHome=1,C.resultOfTeamHome=-1)
+    GROUP BY B.matchID;
+    
 ```
 
 * 13 Liệt kê cầu thủ có số thời gian chơi lớn hơn trung bình thời gian chơi của các đội ấy

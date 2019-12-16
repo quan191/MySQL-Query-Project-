@@ -16,9 +16,13 @@ Xây dựng cơ sở dữ liệu và viết các câu truy vấn với database 
 
 ## Phần mềm sử dụng và database sử dụng 
 
-* MySQL - The web framework used
+* MySQL/MariaDB 
 * MySQL WorkBench - Sử dụng để tạo ER diagram và các câu truy vấn
 * Premiere League (https://relational.fit.cvut.cz/dataset/PremiereLeague) - Database sử dụng 
+
+## Cách để lấy database 
+* Trên đường link bên trên có hướng dấn 
+* Truy cập vào github này để lấy database
 
 ## List các câu hỏi 
 
@@ -95,7 +99,7 @@ ON matches.teamAwayID=Teams.teamID
 WHERE Teams.name='Arsenal' AND matches.resultOfTeamHome=1 );
 ```
 
-* 6 Ví dụ của minus : Đội bóng thắng MU nhưng chưa từng thắng MC 
+* 6 Thủ môn cản phá được nhiều nhất 
 ```
 Solution here
 ```
@@ -119,7 +123,7 @@ group by A.matchID;  ;
 
 * 8 Tạo bảng lịch sử đối đầu của các đội ( tỉ lệ thắng hòa thua của 2 đội)
 ```
-Solution here
+Solution ở bên trong file .doc được up lên github này
 ```
 
 * 9 In ra cầu thủ có tên kí tự đặc biệt của đội Manchester United (ứng dụng regexp )
@@ -187,7 +191,7 @@ SELECT B.teamID,
 
 ```
 
-* 14 Cầu thủ có tỉ lệ sút thành công penalty cao nhất mà số lần sút < trung bình của số penalty của mùa giải  
+* 14 Cầu thủ có tỉ lệ sút thành công penalty cao nhất mà số lần sút < 2 
 ```
 SET @a= (SELECT SUM(penaltiesNotScored)+SUM(penaltyGoals) FROM actions )/(SELECT COUNT(DISTINCT(matchID)) FROM actions WHERE penaltyGoals>0 or penaltiesNotScored>0 );
 SELECT  A.name,
@@ -202,17 +206,17 @@ SELECT  A.name,
     ORDER BY percentPenaltyScore desc limit 1;
 ```
 
-* 15 Đội bóng càng đá càng hay ( số điểm dành được ở mùa sau > số điểm dành được ở mùa trước
+* 15 Liệt kê các cầu thủ của đội MU
+```
+bên trong file .doc được up lên github này
+```
+
+* 16 Thành tích của 1 đội cho đến ngày 1/1/2012
 ```
 Solution here
 ```
 
-* 16 Thành tích của 1 đội cho đến ngày x x x 
-```
-Solution here
-```
-
-* 17 Cầu thủ vứt đi 
+* 17 Lấy ra 10 cầu thủ từ sau vị trí thứ 3 trong danh sách những cầu thủ nhận nhiều thẻ vàng nhất 
 ```
 Solution here
 ```

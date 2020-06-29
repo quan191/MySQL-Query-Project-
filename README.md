@@ -208,17 +208,36 @@ SELECT  A.name,
 
 * 15 Liệt kê các cầu thủ của đội MU
 ```
-bên trong file .doc được up lên github này
+SELECT distinct(A.name) as Player, B.name as Team 
+	FROM Players as A 
+	JOIN Actions as C 
+	ON A.playerID=C.playerID 
+	JOIN Teams as B 
+	ON C.teamID=B.teamID 
+	WHERE B.name = 'Manchester United';
+
 ```
 
 * 16 Thành tích của 1 đội cho đến ngày 1/1/2012
 ```
-Solution here
+set @a=(SELECT teamID FROM teams WHERE name='Manchester United'); 
+SELECT 
+	SUM(IF(IF(B.teamHomeID=@a,B.resultOfTeamHome,NULL)=1,1 ,0)) +SUM(IF(IF(B.teamAwayID=@a,B.resultOfTeamHome,NULL)=- 1,1,0)) as WIN, 
+	SUM(IF(IF(B.teamHomeID=@a,B.resultOfTeamHome,NULL)=0,1 ,0)) +SUM(IF(IF(B.teamAwayID=@a,B.resultOfTeamHome,NULL)=0, 1,0)) as DRAW, 
+	SUM(IF(IF(B.teamHomeID=@a,B.resultOfTeamHome,NULL)=- 1,1,0)) +SUM(IF(IF(B.teamAwayID=@a,B.resultOfTeamHome,NULL)=1, 1,0)) as LOSE 
+	FROM matches as B WHERE @a in (B.teamHomeID,B.teamAwayID) and date <='2012-1-1'; 
+
 ```
 
 * 17 Lấy ra 10 cầu thủ từ sau vị trí thứ 3 trong danh sách những cầu thủ nhận nhiều thẻ vàng nhất 
 ```
-Solution here
+SELECT A.name , SUM(B.yellowCards) as YellowCardsTake 
+	FROM Players as A 
+	JOIN Actions as B 
+	using (PlayerID) 
+	GROUP BY B.playerID 
+	ORDER BY YellowCardsTake desc limit 3,10; 
+
 ```
 
 * 18 Liệt kê số lượng thủ môn , tiền vệ , hậu vệ , tiền đạo của từng đội bóng 
